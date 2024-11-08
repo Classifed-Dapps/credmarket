@@ -1,7 +1,5 @@
-import React from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-const page = () => {
-  return <div>page</div>;
-};
-
-export default page;
+export default function Home() {
+  return <ConnectButton />;
+}
