@@ -32,7 +32,7 @@ export default function App({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider modalSize="compact" initialChain={mande}>
+        <RainbowKitProvider>
           {children}
           <ToastContainer />
         </RainbowKitProvider>
