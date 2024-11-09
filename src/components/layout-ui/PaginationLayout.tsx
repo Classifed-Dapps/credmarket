@@ -8,6 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+
 export default function PaginationLayout() {
   return (
     <Pagination className=" font-manrope font-[500] text-base text-primary-3">

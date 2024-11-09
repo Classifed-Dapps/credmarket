@@ -3,6 +3,7 @@ import { Input } from "../ui/input";
 import SelectField from "./SelectField";
 import Image from "next/image";
 import { Button } from "../ui/button";
+
 export default function HeaderInputField({ type }: { type: string }) {
   return (
     <div

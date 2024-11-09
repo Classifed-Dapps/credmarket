@@ -13,10 +13,11 @@ import { LuFolderOpen } from "react-icons/lu";
 import Link from "next/link";
 import {
   FaRegEnvelope,
-  FaRegFolderOpen,
+  // FaRegFolderOpen,
   FaRegHeart,
   FaRegUser,
 } from "react-icons/fa6";
+
 export default function DropdownLayout() {
   const tabs: Tab[] = [
     {
