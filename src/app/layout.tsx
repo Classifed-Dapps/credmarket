@@ -3,6 +3,7 @@ import "./globals.css";
 import dynamic from "next/dynamic";
 import Header from "@/components/layout-ui/Header";
 import { Inter, Mansalva, Manrope, Roboto, Poppins } from "next/font/google";
+import Footer from "@/components/layout-ui/Footer";
 
 export const metadata: Metadata = {
   title: "Credlist",
@@ -48,11 +49,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${mansalva.variable} ${manrope.variable} ${inter.variable} ${roboto.variable} ${poppins.variable} flex flex-col my-0 mx-auto max-w-[144rem]  min-h-screen antialiased`}
+        className={`${mansalva.variable} ${manrope.variable} ${inter.variable} ${roboto.variable} ${poppins.variable} flex flex-col bg-primary-1 my-0 mx-auto max-w-[144rem]  min-h-screen antialiased`}
       >
         <App>
           <Header />
-          <main>{children}</main>
+          <main className="mt-16">{children}</main>
+          <Footer />
         </App>
       </body>
     </html>

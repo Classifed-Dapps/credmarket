@@ -23,7 +23,13 @@ export default function SelectField({
 }) {
   return (
     <Select>
-      <SelectTrigger className="text-tertiary-1 border-none focus:ring-0 ">
+      <SelectTrigger
+        className={`${
+          type === "footer"
+            ? "text-tertiary-3 border border-tertiary-4 rounded-none bg-primary-3 w-[150px]"
+            : "text-tertiary-1 border-none "
+        } focus:ring-0 focus:ring-offset-0`}
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent className="bg-primary-1">

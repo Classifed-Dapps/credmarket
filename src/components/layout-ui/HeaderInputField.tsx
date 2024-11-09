@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 export default function HeaderInputField({ type }: { type: string }) {
   return (
     <div
-      className={`flex justify-between gap-2 bg-primary-1 w-[45%] ${
+      className={`flex justify-between gap-2 bg-primary-1 w-full  ${
         type === "left" ? "rounded-l-full" : "rounded-r-full"
       }   p-1.5 `}
     >
@@ -16,6 +16,7 @@ export default function HeaderInputField({ type }: { type: string }) {
           <Image
             src="/svg/SearchIcon.svg"
             alt="search"
+            className=""
             width={40}
             height={40}
           />

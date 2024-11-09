@@ -10,44 +10,69 @@ import {
 } from "@/components/ui/pagination";
 export default function PaginationLayout() {
   return (
-    <Pagination className=" font-manrope font-[500] text-base text-primary-3">
-      <PaginationContent className="flex flex-row justify-between items-center w-[50%] mt-16">
+    <Pagination className=" font-manrope font-[500] overflow-hidden text-base text-gray-1 px-5">
+      <PaginationContent className=" mr-4  flex flex-row justify-between items-center md:w-[80%] w-[200%] scale-[0.8] md:scale-100 my-12">
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious className="text-xs" href="#" />
         </PaginationItem>
 
         <div className="flex ">
           <PaginationItem>
             <PaginationLink
+              className="z-10 text-xs hover:bg-current-100/30 duration-300 transition-all bg-current-100 text-primary-1 p-2 rounded-none"
               isActive
-              className="bg-secondary-1 text-primary-1 p-2 rounded-none"
               href="#"
             >
               1
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">2</PaginationLink>
+            <PaginationLink
+              className="text-xs hover:bg-current-100/30 duration-300 transition-all"
+              href="#"
+            >
+              2
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
+            <PaginationLink
+              className="text-xs hover:bg-current-100/30 duration-300 transition-all"
+              href="#"
+            >
+              3
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">8</PaginationLink>
+            <PaginationLink
+              className="text-xs hover:bg-current-100/30 duration-300 transition-all"
+              href="#"
+            >
+              8
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">9</PaginationLink>
+            <PaginationLink
+              className="text-xs hover:bg-current-100/30 duration-300 transition-all"
+              href="#"
+            >
+              9
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">10</PaginationLink>
+            <PaginationLink
+              className="text-xs hover:bg-current-100/30 duration-300 transition-all"
+              href="#"
+            >
+              10
+            </PaginationLink>
           </PaginationItem>
         </div>
 
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href="#" className="text-xs" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
