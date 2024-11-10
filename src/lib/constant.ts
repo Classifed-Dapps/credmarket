@@ -31,11 +31,6 @@ export const homePageLists = [
   },
   {
     id: 7,
-    title: "Real Estate",
-    lists: ["Rentals", "For Sale"],
-  },
-  {
-    id: 8,
     title: "Services",
     lists: ["Cleaning Services", "Moving & Transportation"],
   },

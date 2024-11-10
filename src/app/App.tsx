@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 const mande = {
   id: 18071918,
   name: "Mande",
-  nativeCurrency: { name: "Mande", symbol: "MANDE", decimals: 18 },
+  nativeCurrency: { name: "Mande", symbol: "MAND", decimals: 18 },
   rpcUrls: {
     default: { http: ["https://mande-mainnet.public.blastapi.io"] },
   },
@@ -32,7 +32,7 @@ export default function App({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider initialChain={mande}>
           {children}
           <ToastContainer />
         </RainbowKitProvider>
