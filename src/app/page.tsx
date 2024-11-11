@@ -1,4 +1,3 @@
-import PaginationLayout from "@/components/layout-ui/PaginationLayout";
 import { homePageLists } from "@/lib/constant";
 
 export default function Home() {
@@ -17,7 +16,7 @@ export default function Home() {
                 </h1>
               </div>
 
-              <div className="flex flex-col p-4 gap-4  h-full">
+              <div className="flex flex-col p-4 gap-3  h-full">
                 {homeList.lists.map((list) => (
                   <p
                     className="text-current-100 underline text-lg font-[400]"
@@ -31,7 +30,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <PaginationLayout />
     </div>
   );
 }

@@ -10,10 +10,15 @@ export default function Footer() {
   const [id, setId] = useState<null | number>(null);
   return (
     <footer className="flex flex-col lg:flex-row  gap-6 items-start justify-between bg-current-700  lg:p-20 px-8 p-8 md:px-12 py-8 font-inter">
-      <h1 className="font-[400] text-current-300 text-3xl md:text-4xl font-mansalva">
+      {/* <h1 className="font-[400] text-current-300 text-3xl md:text-4xl font-mansalva">
         Cred<span className="text-orange">List</span>
-      </h1>
-
+      </h1> */}
+      <Image
+        src="/asset/cred_2.png"
+        alt="credList logo"
+        width={120}
+        height={120}
+      />
       <div className="grid grid-cols-2 gap-5 md:flex justify-between items-start w-full lg:w-[60%]">
         {footerLinks.map((footerLink) => (
           <div key={footerLink.id} className="flex flex-col gap-4">

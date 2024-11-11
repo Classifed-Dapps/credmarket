@@ -59,9 +59,15 @@ export default function Header() {
   return (
     <header className="fixed max-w-[144rem] w-full flex justify-between items-center gap-4 py-4 px-5  lg:px-14 bg-current-100 font-inter text-primary-1 font-[500]">
       <div className="flex w-max lg:w-[70%] items-center gap-7 ">
-        <p className="font-[400] text-3xl md:text-4xl font-mansalva">
+        {/* <p className="font-[400] text-3xl md:text-4xl font-mansalva">
           Cred<span className="text-orange">List</span>
-        </p>
+        </p> */}
+        <Image
+          src="/asset/cred_1.png"
+          alt="credList logo"
+          width={120}
+          height={120}
+        />
         <div className="hidden lg:block">
           {user ? <InputContainer /> : <HeaderSelectField />}
         </div>
