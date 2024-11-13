@@ -3,7 +3,7 @@ import SelectField from "./SelectField";
 
 export default function HeaderSelectField() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col md:flex-row items-center gap-4">
       <SelectField
         placeholder="London, UK"
         type="loggedIn"

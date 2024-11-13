@@ -7,17 +7,18 @@ interface Footer {
   id: number;
   links: Links[];
 }
-type DashProduct = {
+type Views = {
   id: number;
   price: number;
   totalImage: number;
   productName: string;
   date: string;
-  profilePhoto: string;
-  profileLabel: string;
+  profilePhoto?: string;
+  ticked: boolean;
   profileName: string;
   location: string;
-  photo: string;
+  photo?: string;
+  favorite: boolean;
 };
 type Product = {
   id: number;

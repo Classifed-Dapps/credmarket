@@ -5,6 +5,7 @@ import Image from "next/image";
 import InputContainer from "./InputContainer";
 import HeaderSelectField from "./HeaderSelectField";
 import DropdownLayout from "./DropdownLayout";
+import ConnectedButton from "./ConnectedButton";
 
 export default function Header() {
   const user: { name: string; id: number } = {
@@ -57,7 +58,7 @@ export default function Header() {
   }, [lastScrollY, timeoutId]);
 
   return (
-    <header className="fixed max-w-[144rem] w-full flex justify-between items-center gap-4 py-4 px-5  lg:px-14 bg-current-100 font-inter text-primary-1 font-[500]">
+    <header className="fixed z-[900] max-w-[144rem] w-full flex justify-between items-center gap-4 py-4 px-5  lg:px-14 bg-current-100 font-inter text-primary-1 font-[500]">
       <div className="flex w-max lg:w-[70%] items-center gap-7 ">
         <p className="font-[400] text-3xl md:text-4xl font-mansalva">
           Cred<span className="text-orange">List</span>
@@ -69,12 +70,12 @@ export default function Header() {
           height={120}
         /> */}
         <div className="hidden lg:block">
-          {user ? <InputContainer /> : <HeaderSelectField />}
+          {user.name === "sam" ? <InputContainer /> : <HeaderSelectField />}
         </div>
       </div>
 
       <div className="flex items-center gap-4 md:gap-12 ">
-        <CustomConnectButton />
+        {user.name === "sam" ? <CustomConnectButton /> : <ConnectedButton />}
         <div className="flex items-end text-xs md:text-sm gap-4 md:gap-9 cursor-pointer">
           <div
             onClick={() => setIsOpen(true)}
@@ -110,14 +111,14 @@ export default function Header() {
       </div>
       {isOpen && (
         <div className="h-screen lg:hidden  w-full fixed backdrop-blur-sm z-[1000] bg-primary-2/70 top-0 left-0">
-          <div className=" mt-8  h-full mx-auto max-w-[90%]">
+          <div className=" mt-8  h-full mx-auto max-w-[90%] flex flex-col ">
             <p
               onClick={() => setIsOpen(false)}
-              className="float-end cursor-pointer font-inter bg-orange shadow-md  font-bold p-2 px-4 mb-8 rounded-full w-max"
+              className="relative left-[90%] cursor-pointer font-inter bg-orange shadow-md  font-bold p-2 px-4 mb-8 rounded-full w-max"
             >
               x
             </p>
-            <InputContainer />
+            {user.name === "sam" ? <InputContainer /> : <HeaderSelectField />}
           </div>
         </div>
       )}
