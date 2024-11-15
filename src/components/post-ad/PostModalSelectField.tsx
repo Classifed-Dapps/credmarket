@@ -16,9 +16,15 @@ export default function PostModalSelectField() {
       <SelectContent className="text-center bg-primary-1">
         <SelectItem
           className="duration-500 cursor-pointer transition-all hover:bg-current-200 hover:text-primary-1"
-          value="MAND"
+          value="ETHER"
         >
-          MAND
+          ETHER
+        </SelectItem>
+        <SelectItem
+          className="duration-500 cursor-pointer transition-all hover:bg-current-200 hover:text-primary-1"
+          value="BTC"
+        >
+          BTC
         </SelectItem>
       </SelectContent>
     </Select>

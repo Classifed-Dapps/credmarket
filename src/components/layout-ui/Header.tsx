@@ -6,6 +6,7 @@ import InputContainer from "./InputContainer";
 import HeaderSelectField from "./HeaderSelectField";
 import DropdownLayout from "./DropdownLayout";
 import ConnectedButton from "./ConnectedButton";
+import Link from "next/link";
 
 export default function Header() {
   const user: { name: string; id: number } = {
@@ -63,12 +64,7 @@ export default function Header() {
         <p className="font-[400] text-3xl md:text-4xl font-mansalva">
           Cred<span className="text-orange">List</span>
         </p>
-        {/* <Image
-          src="/asset/cred_1.png"
-          alt="credList logo"
-          width={120}
-          height={120}
-        /> */}
+
         <div className="hidden lg:block">
           {user.name === "sam" ? <InputContainer /> : <HeaderSelectField />}
         </div>
@@ -77,18 +73,17 @@ export default function Header() {
       <div className="flex items-center gap-4 md:gap-12 ">
         {user.name === "sam" ? <CustomConnectButton /> : <ConnectedButton />}
         <div className="flex items-end text-xs md:text-sm gap-4 md:gap-9 cursor-pointer">
-          <div
-            onClick={() => setIsOpen(true)}
-            className="flex flex-col  items-center"
-          >
-            <Image
-              src="/svg/PlusCircle.svg"
-              width={30}
-              height={30}
-              alt="pluscircle"
-            />
-            <p>Sell</p>
-          </div>
+          <Link href="/post-ad" legacyBehavior>
+            <a className="flex flex-col items-center">
+              <Image
+                src="/svg/PlusCircle.svg"
+                width={30}
+                height={30}
+                alt="pluscircle"
+              />
+              <p>Sell</p>
+            </a>
+          </Link>
           <div className="flex flex-col gap-2  items-center">
             <DropdownLayout />
             <p>Menu</p>
