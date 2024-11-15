@@ -45,14 +45,14 @@ export default function PostModal() {
         </div>
         <div className="flex justify-center ">
           <Button className="flex gap-3 items-center rounded-3xl py-6 px-6 text-primary-2/80 bg-current-100/5 font-[500] text-xl">
-            <p>$55</p>
+            <p>$</p>
             <ArrowUpDown className="text-xl" />
           </Button>
         </div>
 
         <div className="text-primary-2/80 font-[500] text-xl flex items-center gap-2 justify-center">
           <p>Balance:</p>
-          <p>24.323 MAND</p>
+          <p>ETHER</p>
         </div>
 
         <AlertDialogFooter>
