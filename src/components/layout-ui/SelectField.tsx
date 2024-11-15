@@ -34,9 +34,9 @@ export default function SelectField({
             : type === "views"
             ? "w-[300px] text-tertiary-1 border-none"
             : type === "loggedIn"
-            ? "!text-current-100 bg-primary-1 font-[500] rounded-none w-[200px]"
+            ? "!text-current-100 bg-primary-1 font-[500] rounded-none w-full md:w-[200px]"
             : type?.startsWith("logged")
-            ? "bg-primary-1 !text-black/70 text-base font-[500] !rounded-none w-[200px]"
+            ? "bg-primary-1 !text-black/70 text-base font-[500] !rounded-none w-full md:w-[200px]"
             : "text-tertiary-1 border-none"
         } focus:ring-0 focus:ring-offset-0 relative`}
       >
