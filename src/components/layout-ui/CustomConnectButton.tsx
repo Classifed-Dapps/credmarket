@@ -13,7 +13,6 @@ export function CustomConnectButton() {
         mounted,
       }) => {
         const ready = mounted && account && chain;
-        console.log(account);
         return (
           <div
             className=""
