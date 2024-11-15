@@ -5,7 +5,6 @@ import Image from "next/image";
 import InputContainer from "./InputContainer";
 import HeaderSelectField from "./HeaderSelectField";
 import DropdownLayout from "./DropdownLayout";
-import ConnectedButton from "./ConnectedButton";
 
 export default function Header() {
   const user: { name: string; id: number } = {
@@ -75,12 +74,9 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-4 md:gap-12 ">
-        {user.name === "sam" ? <CustomConnectButton /> : <ConnectedButton />}
+        <CustomConnectButton />
         <div className="flex items-end text-xs md:text-sm gap-4 md:gap-9 cursor-pointer">
-          <div
-            onClick={() => setIsOpen(true)}
-            className="flex flex-col  items-center"
-          >
+          <div className="flex flex-col  items-center">
             <Image
               src="/svg/PlusCircle.svg"
               width={30}
