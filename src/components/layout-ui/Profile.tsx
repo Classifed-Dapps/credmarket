@@ -1,6 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
+import AdModal from "../ads/AdModal";
 
 export default function Profile({
   userImg,
@@ -30,9 +31,8 @@ export default function Profile({
           {name}
         </p>
       </div>
-      <Button className="bg-primary-2/20 py-1 px-2.5 text-primary-2/80 font-poppins text-xs rounded-3xl font-[500]">
-        User history
-      </Button>
+
+      <AdModal title="User history" />
     </div>
   );
 }
