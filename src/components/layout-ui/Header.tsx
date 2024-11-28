@@ -6,6 +6,7 @@ import InputContainer from "./InputContainer";
 import HeaderSelectField from "./HeaderSelectField";
 import DropdownLayout from "./DropdownLayout";
 import Link from "next/link";
+import { useScrollModal } from "@/hooks/useScrollModal";
 
 export default function Header() {
   const user: { name: string; id: number } = {
@@ -16,16 +17,7 @@ export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  useEffect(
-    function () {
-      if (isOpen) document.body.style.overflow = "hidden";
-      else document.body.style.overflow = "";
-      return () => {
-        document.body.style.overflow = "";
-      };
-    },
-    [isOpen]
-  );
+  useScrollModal(isOpen);
 
   useEffect(() => {
     const handleScroll = () => {
