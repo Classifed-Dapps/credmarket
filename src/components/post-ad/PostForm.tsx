@@ -23,7 +23,65 @@ import UploadPhoto from "./UploadPhoto";
 import PostInput from "./PostInput";
 import PostModal from "./PostModal";
 
+// Categories and subcategories
+const subCategories = {
+  for_sale: [
+    { name: "General Items", value: "general_items" },
+    { name: "Clothing & Accessories", value: "clothing_accessories" },
+    { name: "Cars & Vehicles", value: "cars_vehicles" },
+  ],
+  jobs: [
+    { name: "Full-Time/Remote", value: "full_time_remote" },
+    { name: "Advertisement and Hire", value: "advertisement_hire" },
+    { name: "Freelance", value: "freelance" },
+  ],
+  pets: [
+    { name: "Pets for Sale", value: "pets_for_sale" },
+    { name: "Pet Services", value: "pet_services" },
+  ],
+  community: [
+    { name: "Events", value: "events" },
+    { name: "Activities", value: "activities" },
+    { name: "Missed Connections", value: "missed_connections" },
+    { name: "Lost + Found", value: "lost_found" },
+  ],
+  real_estate: [
+    { name: "Rentals", value: "rentals" },
+    { name: "For Sale", value: "real_estate_for_sale" },
+  ],
+  free_stuff: [
+    { name: "Free to Collect", value: "free_to_collect" },
+    { name: "Giveaways", value: "giveaways" },
+  ],
+  services: [
+    { name: "Cleaning Services", value: "cleaning_services" },
+    { name: "Moving & Transportation", value: "moving_transportation" },
+  ],
+};
+
+// Transform subcategories into dropdown-compatible format with numeric id
+const values = Object.entries(subCategories).flatMap(
+  ([categoryKey, subcategoryList], index) => {
+    const categoryHeader = {
+      id: index, // Use numeric index for category id
+      label: categoryKey.replace(/_/g, " ").toUpperCase(), // Category name as a header
+      value: categoryKey,
+      isHeader: true, // Flag to mark as unselectable
+    };
+
+    const subcategories = subcategoryList.map((subcategory, subIndex) => ({
+      id: subIndex + 1000, // Start subcategory id from 1000 to ensure uniqueness
+      label: subcategory.name,
+      value: subcategory.value,
+    }));
+
+    return [categoryHeader, ...subcategories];
+  }
+);
+
+// Form schema
 const formSchema = adFormSchema();
+
 export function PostForm() {
   const [images, setImages] = useState<File[]>([]);
 
@@ -39,7 +97,7 @@ export function PostForm() {
     },
   });
 
-  // 2. Define a submit handler.
+  // Submit handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values, images);
   }
@@ -59,23 +117,16 @@ export function PostForm() {
             name="category"
             label="Choose Category"
             placeholder="Household items"
-            values={[
-              {
-                id: 1,
-                label: "Chairs",
-                value: "chair",
-              },
-              {
-                id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
-              },
-            ]}
+            values={values} // Pass the structured category data here
+            renderOption={(option) =>
+              option.isHeader ? (
+                <span style={{ fontWeight: "bold", color: "#999" }}>
+                  {option.label}
+                </span>
+              ) : (
+                option.label
+              )
+            }
           />
         </div>
         <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 lg:gap-12">
@@ -93,18 +144,13 @@ export function PostForm() {
             values={[
               {
                 id: 1,
-                label: "Chairs",
-                value: "chair",
+                label: "New",
+                value: "new",
               },
               {
                 id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
+                label: "Used",
+                value: "used",
               },
             ]}
           />
@@ -118,18 +164,13 @@ export function PostForm() {
             values={[
               {
                 id: 1,
-                label: "Chairs",
-                value: "chair",
+                label: "Shipping",
+                value: "shipping",
               },
               {
                 id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
+                label: "Pickup",
+                value: "pickup",
               },
             ]}
           />
@@ -151,8 +192,8 @@ export function PostForm() {
               },
               {
                 id: 3,
-                label: "Ethopia",
-                value: "ethopia",
+                label: "Ethiopia",
+                value: "ethiopia",
               },
             ]}
           />
@@ -186,7 +227,7 @@ export function PostForm() {
               Ad Deposit <span className="text-red">(Optional)</span>
             </p>
             <p className="text-primary-2/70 font-[400] text-base ">
-              Increase buyer confidence by staking a deoposit in cryptocurrency.
+              Increase buyer confidence by staking a deposit in cryptocurrency.
             </p>
           </div>
           <PostModal />
