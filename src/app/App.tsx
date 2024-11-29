@@ -10,7 +10,6 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import { ReactNode } from "react";
 import { sepolia } from "wagmi/chains";
-
 const queryClient = new QueryClient();
 
 const config = getDefaultConfig({
@@ -32,3 +31,12 @@ export default function App({ children }: { children: ReactNode }) {
     </WagmiProvider>
   );
 }
+
+//const mande = {
+//id: 18071918,
+// name: "Mande",
+// nativeCurrency: { name: "Mande", symbol: "MAND", decimals: 18 },
+// rpcUrls: {
+//  default: { http: ["https://mande-mainnet.public.blastapi.io"] },
+//},
+//} as const satisfies Chain;
