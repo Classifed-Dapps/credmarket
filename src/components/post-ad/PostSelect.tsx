@@ -16,13 +16,16 @@ import {
 import { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
 import { adFormSchema } from "@/lib/utils";
+
 const formSchema = adFormSchema();
+
 interface CustomInputProps {
   control: Control<z.infer<typeof formSchema>>;
   name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
-  values: { id: number; label: string; value: string }[];
+  values: { id: any; label: string; value: string }[];
+  onValueChange?: (value: string) => void;
 }
 
 export default function PostSelect({
@@ -31,6 +34,7 @@ export default function PostSelect({
   label,
   values,
   placeholder,
+  onValueChange, // Add this line to destructure the prop
 }: CustomInputProps) {
   return (
     <FormField
@@ -41,7 +45,13 @@ export default function PostSelect({
           <FormLabel className="text-primary-2/70 font-[400] font-poppins text-base">
             {label}
           </FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={(value) => {
+              field.onChange(value); // Update the form value
+              onValueChange && onValueChange(value); // Call the passed callback if it exists
+            }}
+            defaultValue={field.value}
+          >
             <FormControl>
               <SelectTrigger className="text-primary-2/70 border border-tertiary-6 bg-primary-1 w-full">
                 <SelectValue

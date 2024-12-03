@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,16 +14,70 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-
 import PostSelect from "./PostSelect";
 import { adFormSchema } from "@/lib/utils";
 import UploadPhoto from "./UploadPhoto";
 import PostInput from "./PostInput";
 import PostModal from "./PostModal";
+import {
+  locations,
+  deliveryMethods,
+  conditions,
+  categories,
+  mainCategories,
+} from "@/lib/selectValues";
 
 const formSchema = adFormSchema();
+
+const subCategories: Record<
+  | "for_sale"
+  | "jobs"
+  | "pets"
+  | "community"
+  | "real_estate"
+  | "free_stuff"
+  | "services",
+  { name: string; value: string }[]
+> = {
+  for_sale: [
+    { name: "General Items", value: "general_items" },
+    { name: "Clothing & Accessories", value: "clothing_accessories" },
+    { name: "Cars & Vehicles", value: "cars_vehicles" },
+  ],
+  jobs: [
+    { name: "Full-Time/Remote", value: "full_time_remote" },
+    { name: "Advertisement and Hire", value: "advertisement_hire" },
+    { name: "Freelance", value: "freelance" },
+  ],
+  pets: [
+    { name: "Pets for Sale", value: "pets_for_sale" },
+    { name: "Pet Services", value: "pet_services" },
+  ],
+  community: [
+    { name: "Events", value: "events" },
+    { name: "Activities", value: "activities" },
+    { name: "Missed Connections", value: "missed_connections" },
+    { name: "Lost + Found", value: "lost_found" },
+  ],
+  real_estate: [
+    { name: "Rentals", value: "rentals" },
+    { name: "For Sale", value: "real_estate_for_sale" },
+  ],
+  free_stuff: [
+    { name: "Free to Collect", value: "free_to_collect" },
+    { name: "Giveaways", value: "giveaways" },
+  ],
+  services: [
+    { name: "Cleaning Services", value: "cleaning_services" },
+    { name: "Moving & Transportation", value: "moving_transportation" },
+  ],
+};
+
 export function PostForm() {
   const [images, setImages] = useState<File[]>([]);
+  const [filteredSubCategories, setFilteredSubCategories] = useState<
+    { name: string; value: string }[]
+  >([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,12 +86,20 @@ export function PostForm() {
       description: "",
       price: "",
       category: "",
+      subCategory: "",
       location: "",
       condition: "",
     },
   });
 
-  // 2. Define a submit handler.
+  const handleCategoryChange = (categoryValue: string) => {
+    const categoryKey = categoryValue
+      .replace(" ", "_")
+      .toLowerCase() as keyof typeof subCategories;
+    setFilteredSubCategories(subCategories[categoryKey] || []);
+    form.setValue("subCategory", ""); // Reset subCategory when category changes
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values, images);
   }
@@ -54,28 +114,30 @@ export function PostForm() {
             name="title"
             control={form.control}
           />
+        </div>
+        <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 lg:gap-12">
           <PostSelect
             control={form.control}
             name="category"
             label="Choose Category"
-            placeholder="Household items"
-            values={[
-              {
-                id: 1,
-                label: "Chairs",
-                value: "chair",
-              },
-              {
-                id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
-              },
-            ]}
+            placeholder=""
+            values={mainCategories.map((category) => ({
+              id: category.value, // Using value as id for now, can be a number if preferred
+              label: category.name,
+              value: category.value,
+            }))}
+            onValueChange={handleCategoryChange}
+          />
+          <PostSelect
+            control={form.control}
+            name="subCategory"
+            label="subCategories"
+            placeholder=""
+            values={filteredSubCategories.map((sub) => ({
+              id: sub.value,
+              label: sub.name,
+              value: sub.value,
+            }))}
           />
         </div>
         <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 lg:gap-12">
@@ -89,24 +151,8 @@ export function PostForm() {
             control={form.control}
             name="condition"
             label="Condition"
-            placeholder="Used"
-            values={[
-              {
-                id: 1,
-                label: "Chairs",
-                value: "chair",
-              },
-              {
-                id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
-              },
-            ]}
+            placeholder=""
+            values={conditions}
           />
         </div>
         <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 lg:gap-12">
@@ -115,46 +161,14 @@ export function PostForm() {
             name="delivery"
             label="Delivery Method"
             placeholder="Shipping"
-            values={[
-              {
-                id: 1,
-                label: "Chairs",
-                value: "chair",
-              },
-              {
-                id: 2,
-                label: "Clothes",
-                value: "clothes",
-              },
-              {
-                id: 3,
-                label: "Shoes",
-                value: "shoes",
-              },
-            ]}
+            values={deliveryMethods}
           />
           <PostSelect
             control={form.control}
             name="location"
             label="Choose Location"
-            placeholder="London, UK"
-            values={[
-              {
-                id: 1,
-                label: "Nigeria",
-                value: "nigeria",
-              },
-              {
-                id: 2,
-                label: "France",
-                value: "france",
-              },
-              {
-                id: 3,
-                label: "Ethopia",
-                value: "ethopia",
-              },
-            ]}
+            placeholder=""
+            values={locations}
           />
         </div>
         <FormField

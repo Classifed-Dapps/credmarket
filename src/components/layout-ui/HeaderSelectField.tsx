@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import SelectField from "./SelectField";
-
-const mainCategories = [
-  { name: "For Sale", value: "for_sale" },
-  { name: "Jobs", value: "jobs" },
-  { name: "Pets", value: "pets" },
-  { name: "Community", value: "community" },
-  { name: "Real Estate", value: "real_estate" },
-  { name: "Free Stuff", value: "free_stuff" },
-  { name: "Services", value: "services" },
-];
+import {
+  categories,
+  locations,
+  mainCategories,
+  stateData,
+} from "@/lib/selectValues";
 
 const subCategories = {
   for_sale: [
@@ -59,62 +55,7 @@ export default function HeaderSelectField() {
 
   return (
     <div className="flex flex-col md:flex-row items-center gap-4">
-      <SelectField
-        placeholder="US"
-        type="loggedIn"
-        values={[
-          { name: "Alabama", value: "al" },
-          { name: "Alaska", value: "ak" },
-          { name: "Arizona", value: "az" },
-          { name: "Arkansas", value: "ar" },
-          { name: "California", value: "ca" },
-          { name: "Colorado", value: "co" },
-          { name: "Connecticut", value: "ct" },
-          { name: "Delaware", value: "de" },
-          { name: "Florida", value: "fl" },
-          { name: "Georgia", value: "ga" },
-          { name: "Hawaii", value: "hi" },
-          { name: "Idaho", value: "id" },
-          { name: "Illinois", value: "il" },
-          { name: "Indiana", value: "in" },
-          { name: "Iowa", value: "ia" },
-          { name: "Kansas", value: "ks" },
-          { name: "Kentucky", value: "ky" },
-          { name: "Louisiana", value: "la" },
-          { name: "Maine", value: "me" },
-          { name: "Maryland", value: "md" },
-          { name: "Massachusetts", value: "ma" },
-          { name: "Michigan", value: "mi" },
-          { name: "Minnesota", value: "mn" },
-          { name: "Mississippi", value: "ms" },
-          { name: "Missouri", value: "mo" },
-          { name: "Montana", value: "mt" },
-          { name: "Nebraska", value: "ne" },
-          { name: "Nevada", value: "nv" },
-          { name: "New Hampshire", value: "nh" },
-          { name: "New Jersey", value: "nj" },
-          { name: "New Mexico", value: "nm" },
-          { name: "New York", value: "ny" },
-          { name: "North Carolina", value: "nc" },
-          { name: "North Dakota", value: "nd" },
-          { name: "Ohio", value: "oh" },
-          { name: "Oklahoma", value: "ok" },
-          { name: "Oregon", value: "or" },
-          { name: "Pennsylvania", value: "pa" },
-          { name: "Rhode Island", value: "ri" },
-          { name: "South Carolina", value: "sc" },
-          { name: "South Dakota", value: "sd" },
-          { name: "Tennessee", value: "tn" },
-          { name: "Texas", value: "tx" },
-          { name: "Utah", value: "ut" },
-          { name: "Vermont", value: "vt" },
-          { name: "Virginia", value: "va" },
-          { name: "Washington", value: "wa" },
-          { name: "West Virginia", value: "wv" },
-          { name: "Wisconsin", value: "wi" },
-          { name: "Wyoming", value: "wy" },
-        ]}
-      />
+      <SelectField placeholder="US" type="loggedIn" values={stateData} />
 
       <SelectField
         placeholder="Select Category"

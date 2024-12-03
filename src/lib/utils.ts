@@ -11,18 +11,9 @@ export const adFormSchema = () =>
       message: "Title must be at least 2 characters.",
     }),
     description: z.string(),
-    // description: z.object({
-    //   bio: z
-    //     .string()
-    //     .min(10, {
-    //       message: "Bio must be at least 10 characters.",
-    //     })
-    //     .max(160, {
-    //       message: "Bio must not be longer than 30 characters.",
-    //     }),
-    // }),
     price: z.string(),
     category: z.string(),
+    subCategory: z.string(),
     condition: z.string(),
     delivery: z.string(),
     location: z.string(),
