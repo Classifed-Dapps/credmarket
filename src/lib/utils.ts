@@ -17,4 +17,5 @@ export const adFormSchema = () =>
     condition: z.string(),
     delivery: z.string(),
     location: z.string(),
+    walletAddress: z.string(),
   });

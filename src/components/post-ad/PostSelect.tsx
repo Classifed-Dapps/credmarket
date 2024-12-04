@@ -24,7 +24,7 @@ interface CustomInputProps {
   name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
-  values: { id: any; label: string; value: string }[];
+  values: { id: any; label: string; value: string }[]; // ID has been changed to type any, hope this breaks nothing
   onValueChange?: (value: string) => void;
 }
 
