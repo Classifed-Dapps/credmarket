@@ -13,23 +13,68 @@ cloudinary.config({
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDB(); // Connect to MongoDB
+    await connectDB();
 
-    // Parse the request body
-    const body = await req.json();
-    const {
-      title,
-      description,
-      price,
-      category,
-      subCategory,
-      location,
-      condition,
-      delivery,
-      images,
-      deposit,
-      walletAddress, // Add wallet address to the request body
-    } = body;
+    const formData = await req.formData();
+    console.log("Received form data:", Object.fromEntries(formData.entries())); // Debug log
+
+    // Extract form data
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const price = formData.get("price") as string;
+    const category = formData.get("category") as string;
+    const subCategory = formData.get("subCategory") as string;
+    const location = formData.get("location") as string;
+    const condition = formData.get("condition") as string;
+    const delivery = formData.get("delivery") as string;
+    const walletAddress = formData.get("walletAddress") as string;
+
+    // Validate required fields
+    if (
+      !title ||
+      !description ||
+      !price ||
+      !category ||
+      !location ||
+      !walletAddress
+    ) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Handle image uploads
+    const imageFiles = formData.getAll("images") as File[];
+    const imageUrls: string[] = [];
+
+    try {
+      for (const file of imageFiles) {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploadResult = await new Promise<{ secure_url: string }>(
+          (resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              { folder: "marketplace_ads" },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result as { secure_url: string });
+              }
+            );
+            uploadStream.end(buffer);
+          }
+        );
+
+        imageUrls.push(uploadResult.secure_url);
+      }
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      return NextResponse.json(
+        { error: "Failed to upload images" },
+        { status: 500 }
+      );
+    }
 
     // Validate wallet address
     if (!walletAddress) {
@@ -53,31 +98,6 @@ export async function POST(req: NextRequest) {
       await user.save();
     }
 
-    // const imageFiles = body.getAll("images") as File[];
-    // const imageUrls: string[] = [];
-
-    // for (const file of imageFiles) {
-    //   // Convert File to Buffer
-    //   const bytes = await file.arrayBuffer();
-    //   const buffer = Buffer.from(bytes);
-
-    //   // Upload to Cloudinary
-    //   const uploadResult = await new Promise<{ url: string }>(
-    //     (resolve, reject) => {
-    //       const uploadStream = cloudinary.uploader.upload_stream(
-    //         { folder: "marketplace_ads" },
-    //         (error, result) => {
-    //           if (error) reject(error);
-    //           else resolve(result!);
-    //         }
-    //       );
-    //       uploadStream.end(buffer);
-    //     }
-    //   );
-
-    //   imageUrls.push(uploadResult.url);
-    // }
-
     // Create a new ad instance
     const newAd = new Ad({
       title,
@@ -88,8 +108,7 @@ export async function POST(req: NextRequest) {
       location,
       condition,
       delivery,
-      images,
-      deposit,
+      images: imageUrls,
       user: user._id, // Link ad to user
     });
 
@@ -111,6 +130,9 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     console.error("Error posting ad:", error);
-    return NextResponse.json({ error: "Failed to post ad" }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to post ad" },
+      { status: 500 }
+    );
   }
 }

@@ -106,42 +106,54 @@ export function PostForm() {
   };
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("Form submission started", values); // Debug log
+
     if (!address) {
-      return toast.error("Please connect your wallet before posting.");
+      toast.error("Please connect your wallet before posting.");
+      return;
     }
 
     setIsSubmitting(true);
     try {
       const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("description", values.description);
-      formData.append("price", values.price);
-      formData.append("category", values.category);
-      formData.append("subCategory", values.subCategory || "");
-      formData.append("location", values.location);
-      formData.append("condition", values.condition || "");
-      formData.append("delivery", values.delivery || "");
+
+      // Add all form fields to FormData
+      Object.entries(values).forEach(([key, value]) => {
+        if (value) formData.append(key, value);
+      });
+
+      // Add wallet address explicitly
       formData.append("walletAddress", address);
 
-      images.forEach((image) => formData.append("images", image));
+      // Add images
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
 
-      const response = await fetch("/api/ads", {
+      console.log("Sending request to API..."); // Debug log
+
+      const response = await fetch("/api/post-ad", {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Failed to post ad. Please try again later.");
+        toast.error("Failed to post ad. Please try again.");
       }
 
       const result = await response.json();
+      console.log("API Response:", result); // Debug log
+
       toast.success("Ad posted successfully!");
-      console.log("Ad Response:", result);
       form.reset();
       setImages([]);
     } catch (error) {
       console.error("Error submitting ad:", error);
-      toast.error("An error occurred while posting the ad.");
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while posting the ad."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -149,7 +161,11 @@ export function PostForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-6"
+        encType="multipart/form-data" // Add this
+      >
         <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 lg:gap-12">
           <PostInput
             label="Item Title"
@@ -250,11 +266,17 @@ export function PostForm() {
         </div>
 
         <Button
-          className="bg-current-100 py-2.5 cursor-pointer w-full font-inter text-primary-1 font-[500] text-lg"
           type="submit"
           disabled={isSubmitting}
+          className="bg-current-100 py-2.5 cursor-pointer w-full font-inter text-primary-1 font-[500] text-lg"
         >
-          {isSubmitting ? "Posting..." : "Post my ad"}
+          {isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <span>Posting...</span>
+            </span>
+          ) : (
+            "Post my ad"
+          )}
         </Button>
       </form>
     </Form>

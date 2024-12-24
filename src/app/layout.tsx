@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Header from "@/components/layout-ui/Header";
 import { Inter, Mansalva, Manrope, Roboto, Poppins } from "next/font/google";
 import Footer from "@/components/layout-ui/Footer";
+import { CustomToast } from "@/components/ui/CustomToast";
 
 export const metadata: Metadata = {
   title: "Credlist",
@@ -56,6 +57,7 @@ export default function RootLayout({
           <Header />
           <main className="pt-16">{children}</main>
           <Footer />
+          <CustomToast />
         </App>
       </body>
     </html>
